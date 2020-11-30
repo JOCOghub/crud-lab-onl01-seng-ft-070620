@@ -1,20 +1,26 @@
 import React, { Component } from 'react';
+import Review from './Review';
 
-class Review extends Component {
+class Reviews extends Component {
 
   render() {
-    const { review } = this.props;
+
+    const { reviews, restaurantId, deleteReview } = this.props;
+    const associatedReviews = reviews.filter(review => review.restaurantId === restaurantId);
+    
+    const reviewList = associatedReviews.map((review, index) => {
+      return <Review key={index} review={review} deleteReview={deleteReview} />
+    })
 
     return (
       <div>
-        <li>
-          {review.text}
-        </li>
-        <button> X </button>
+        <ul>
+          {reviewList}
+        </ul>
       </div>
     );
   }
 
 };
 
-export default Review;
+export default Reviews;
